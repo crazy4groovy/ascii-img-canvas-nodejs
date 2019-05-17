@@ -1,0 +1,25 @@
+{
+  "name": "ascii-img-canvas-nodejs",
+  "version": "1.0.0",
+  "description": "Convert any image into ASCII via canvas (Node.js)",
+  "main": "index.js",
+  "scripts": {
+    "lint": "xo --fix",
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "canvas": "^2.5.0"
+  },
+  "devDependencies": {
+    "jest": "^24.8.0",
+    "xo": "^0.24.0"
+  },
+  "xo": {
+    "envs": ["node", "jest"],
+    "space": true,
+    "semicolon": false
+  }
+}

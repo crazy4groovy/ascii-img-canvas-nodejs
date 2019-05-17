@@ -1,0 +1,26 @@
+const {createCanvas, loadImage} = require('canvas')
+
+const canvas = createCanvas(200, 200)
+const ctx = canvas.getContext('2d')
+
+// Write "Awesome!"
+ctx.font = '30px Impact'
+ctx.rotate(0.1)
+ctx.fillText('Awesome!', 50, 100)
+
+// Underline text
+const text = ctx.measureText('Awesome!')
+ctx.strokeStyle = 'rgba(0,0,0,0.5)'
+ctx.beginPath()
+ctx.lineTo(50, 102)
+ctx.lineTo(50 + text.width, 102)
+ctx.stroke()
+
+const imgSrc = 'http://preventioncdnndg.org/eco-quartier/wp-content/uploads/sites/3/2015/09/tree.jpg'
+// /imgSrc = 'images/cat.jpg'
+loadImage(imgSrc).then(image => {
+  ctx.drawImage(image, 50, 0, 70, 70)
+  const dataUrl = canvas.toDataURL()
+
+  console.log('<img src="' + dataUrl + '" />')
+})

@@ -241,4 +241,5 @@ let asciiImgCanvasNodejs = (() => {
     return _ref.apply(this, arguments);
   };
 })();
+
 module.exports = asciiImgCanvasNodejs;

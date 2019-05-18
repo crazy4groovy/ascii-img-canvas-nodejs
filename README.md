@@ -15,7 +15,7 @@ Note: This lib relies on the lib [canvas](https://www.npmjs.com/package/canvas),
 ```javascript
 const imgToAscii = require('ascii-img-canvas-nodejs')
 
-const opts = {}
+const opts = { stream: true }
 
 const asciiImgHosted = await imgToAscii('http://example.com/image.jpg', opts)
 console.log(asciiImgHosted)
@@ -26,10 +26,11 @@ console.log(asciiImgLocal)
 
 ## Options
 
-- .alpha = `false`
-- .block = `false`
+- .stream = `false` (recommended: `true`)
+- .alpha = `false`  (* .htmlColor)
+- .block = `false`  (* .htmlColor)
 - .chars = `' .,:;i1tfLCG08@'`
-- .htmlColor = `false`
-- .invert = `false`
+- .htmlColor = `false` *
+- .invert = `false` (light <==> dark)
 - .width = `200`
 - .height = `200`

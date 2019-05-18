@@ -11,8 +11,8 @@ async function asciifyImageSrc(imgSrc, opts) {
   const width = opts.width || 200
   const height = opts.height || 200
 
-  const asciiPixels = await fromCanvas(imgSrc, width, height)
-  const asciiStr = toAscii(asciiPixels, {chars, isInvert, isHtmlColor, isBlock, isAlpha})
+  const pixels = await fromCanvas(imgSrc, width, height)
+  const asciiStr = toAscii({chars, isInvert, isHtmlColor, isBlock, isAlpha}).pixels(pixels)
   return asciiStr
 }
 

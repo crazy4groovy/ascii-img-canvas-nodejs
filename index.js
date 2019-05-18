@@ -1,7 +1,7 @@
-const fromCanvas = require('./pixels/from-canvas')
-const toAscii = require('./pixels/to-ascii')
+import {fromCanvas} from './pixels/from-canvas'
+import {toAscii} from './pixels/to-ascii'
 
-async function asciifyImageSrc(imgSrc, opts) {
+async function asciiImgCanvasNodejs(imgSrc, opts) {
   const chars = opts.chars || null
   const isAlpha = (opts.alpha === true)
   const isBlock = (opts.block === true)
@@ -24,4 +24,4 @@ async function asciifyImageSrc(imgSrc, opts) {
   return asciiChars
 }
 
-module.exports = asciifyImageSrc
+module.exports = asciiImgCanvasNodejs

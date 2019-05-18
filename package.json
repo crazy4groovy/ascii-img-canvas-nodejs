@@ -1,9 +1,11 @@
 {
   "name": "ascii-img-canvas-nodejs",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Convert any image into ASCII via canvas (Node.js)",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "files": ["dist/*"],
   "scripts": {
+    "build": "rollup -c",
     "lint": "xo --fix",
     "test": "jest"
   },
@@ -14,11 +16,18 @@
     "canvas": "^2.5.0"
   },
   "devDependencies": {
+    "babel-preset-env": "^1.7.0",
     "jest": "^24.8.0",
+    "rollup": "^1.12.2",
+    "rollup-plugin-babel": "^4.3.2",
+    "rollup-plugin-node-resolve": "^5.0.0",
     "xo": "^0.24.0"
   },
   "xo": {
-    "envs": ["node", "jest"],
+    "envs": [
+      "node",
+      "jest"
+    ],
     "space": true,
     "semicolon": false
   }

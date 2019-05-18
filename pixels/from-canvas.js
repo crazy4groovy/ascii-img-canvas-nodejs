@@ -1,6 +1,6 @@
 const {createCanvas, loadImage} = require('canvas')
 
-async function fromCanvas(imgSrc, width, height, next) {
+export async function fromCanvas(imgSrc, width, height, next) {
   const canvasImg = await loadImage(imgSrc)
 
   const canvas = createCanvas(width, height)
@@ -40,5 +40,3 @@ async function fromCanvas(imgSrc, width, height, next) {
 
   return asciiPixels
 }
-
-module.exports = fromCanvas

@@ -1,0 +1,4 @@
+**/__snapshots__
+**/*.test.js
+**/*.spec.js
+reference/

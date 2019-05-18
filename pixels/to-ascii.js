@@ -9,7 +9,7 @@ function rgbStr(r, g, b) {
   return 'rgb(' + [r, g, b].join(',') + ');'
 }
 
-function init({chars, isInvert, isHtmlColor, isBlock, isAlpha}) {
+export function toAscii({chars, isInvert, isHtmlColor, isBlock, isAlpha}) {
   const charList = (chars ||
     (isHtmlColor ? defaultColorCharList : defaultCharList)).split('')
 
@@ -71,5 +71,3 @@ function init({chars, isInvert, isHtmlColor, isBlock, isAlpha}) {
     pixels
   }
 }
-
-module.exports = init

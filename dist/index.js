@@ -203,41 +203,41 @@ function toAscii({
 }
 
 let asciiImgCanvasNodejs = (() => {
-  var _ref = _asyncToGenerator(function* (imgSrc, opts) {
+  var _ref = _asyncToGenerator(function* (imgSrc, opts = {}) {
+    if (!imgSrc || typeof imgSrc !== 'string') {
+      throw new TypeError('Invalid image source value: ' + imgSrc);
+    }
+
+    if (typeof opts !== 'object') {
+      throw new TypeError('Invalid options: ' + opts);
+    }
+
     const chars = opts.chars || null;
     const isAlpha = opts.alpha === true;
     const isBlock = opts.block === true;
     const isHtmlColor = opts.htmlColor === true;
     const isInvert = opts.invert === true;
-    const isStream = opts.stream === true;
-    const width = opts.width || 200;
+    const isStream = opts.stream !== false;
     const height = opts.height || 200;
-
-    if (isStream) {
-      const asciiInstance = toAscii({
-        chars,
-        isInvert,
-        isHtmlColor,
-        isBlock,
-        isAlpha
-      });
-      yield fromCanvas(imgSrc, width, height, asciiInstance.pixel);
-      const asciiChars = asciiInstance.asciiChars();
-      return asciiChars;
-    }
-
-    const pixels = yield fromCanvas(imgSrc, width, height);
-    const asciiChars = toAscii({
+    const width = opts.width || 200;
+    const asciiInstance = toAscii({
       chars,
       isInvert,
       isHtmlColor,
       isBlock,
       isAlpha
-    }).pixels(pixels);
-    return asciiChars;
+    });
+
+    if (isStream) {
+      yield fromCanvas(imgSrc, width, height, asciiInstance.pixel);
+      return asciiInstance.asciiChars();
+    }
+
+    const pixels = yield fromCanvas(imgSrc, width, height);
+    return asciiInstance.pixels(pixels);
   });
 
-  return function asciiImgCanvasNodejs(_x, _x2) {
+  return function asciiImgCanvasNodejs(_x) {
     return _ref.apply(this, arguments);
   };
 })();

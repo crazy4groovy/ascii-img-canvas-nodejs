@@ -1,10 +1,10 @@
 # ascii-img-canvas-nodejs
 
-## What Can This Do
+## Overview
 
-Convert any image into ASCII in NodeJS
+Convert almost any image into ASCII in NodeJS.
 
-Note: This lib relies on the lib [canvas](https://www.npmjs.com/package/canvas), which has some **very heavy** [compiling](https://www.npmjs.com/package/canvas#compiling) requirements. Please check to see if/how your machine's OS is supported. (I recommend Ubuntu.)
+Note: This lib depends on [canvas](https://www.npmjs.com/package/canvas), which has some **very heavy** [compiling](https://www.npmjs.com/package/canvas#compiling) requirements. Please check to see if/how your machine's OS is supported. (I recommend Ubuntu.)
 
 ## Install
 
@@ -15,7 +15,7 @@ Note: This lib relies on the lib [canvas](https://www.npmjs.com/package/canvas),
 ```javascript
 const imgToAscii = require('ascii-img-canvas-nodejs')
 
-const opts = { stream: true }
+const opts = {}
 
 const asciiImgHosted = await imgToAscii('http://example.com/image.jpg', opts)
 console.log(asciiImgHosted)
@@ -26,7 +26,6 @@ console.log(asciiImgLocal)
 
 ## Options
 
-- .stream = `false` (recommended: `true`)
 - .alpha = `false`  (* .htmlColor)
 - .block = `false`  (* .htmlColor)
 - .chars = `' .,:;i1tfLCG08@'`

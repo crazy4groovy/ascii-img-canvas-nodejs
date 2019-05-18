@@ -268,5 +268,3 @@ let main = (() => {
   };
 })();
 main();
-
-module.exports = main;

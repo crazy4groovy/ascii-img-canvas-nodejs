@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 'use strict';
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
@@ -242,4 +243,30 @@ let asciiImgCanvasNodejs = (() => {
   };
 })();
 
-module.exports = asciiImgCanvasNodejs;
+let main = (() => {
+  var _ref = _asyncToGenerator(function* () {
+    console.log('run: ascii-img <image-path> <width?> <height?>');
+    const args = process.argv.slice(2);
+
+    var _args = _slicedToArray(args, 3);
+
+    const img = _args[0];
+    var _args$ = _args[1];
+    const width = _args$ === undefined ? '100' : _args$;
+    var _args$2 = _args[2];
+    const height = _args$2 === undefined ? '100' : _args$2;
+    const opts = {
+      height: Number(height),
+      width: Number(width)
+    };
+    const asciiImgHosted = yield asciiImgCanvasNodejs(img, opts).catch(console.log);
+    console.log(asciiImgHosted);
+  });
+
+  return function main() {
+    return _ref.apply(this, arguments);
+  };
+})();
+main();
+
+module.exports = main;

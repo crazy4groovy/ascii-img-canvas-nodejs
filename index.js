@@ -30,4 +30,4 @@ async function asciiImgCanvasNodejs(imgSrc, opts = {}) {
   return asciiInstance.pixels(pixels)
 }
 
-module.exports = asciiImgCanvasNodejs
+export default asciiImgCanvasNodejs

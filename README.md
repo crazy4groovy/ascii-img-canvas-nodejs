@@ -10,7 +10,7 @@ Note: This lib depends on [canvas](https://www.npmjs.com/package/canvas), which 
 
 `npm install ascii-img-canvas-nodejs`
 
-## Use
+## Usage (lib)
 
 ```javascript
 const imgToAscii = require('ascii-img-canvas-nodejs')
@@ -33,3 +33,9 @@ console.log(asciiImgLocal)
 - .invert = `false` (light <==> dark)
 - .width = `200`
 - .height = `200`
+
+## Usage (cli)
+
+`npm install -g ascii-img-canvas-nodejs`
+
+`ascii-img <image-path> <width?> <height?>`

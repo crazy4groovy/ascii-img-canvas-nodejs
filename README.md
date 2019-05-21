@@ -39,3 +39,16 @@ console.log(asciiImgLocal)
 `npm install -g ascii-img-canvas-nodejs`
 
 `ascii-img <image-path> <width?> <height?>`
+
+## Usage (HTTP)
+
+server:
+
+`npm install -g ascii-img-canvas-nodejs`
+
+`ascii-img-server <port?> <ip?>`
+
+client:
+
+- single image: `GET /img?url=http://url1&{options}`
+- multiple images: `POST /imgs?{options} ; body of content-type "application/json" ===> ["url1", ...]`

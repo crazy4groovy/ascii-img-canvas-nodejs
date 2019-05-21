@@ -18,6 +18,20 @@ export default [
     ]
   },
   {
+    input: 'server.js',
+    output: {
+      file: 'dist/server.js',
+      format: 'cjs'
+    },
+    plugins: [
+      resolve(),
+      babel({
+        exclude: 'node_modules/**' // Only transpile our source code
+      }),
+      shebang()
+    ]
+  },
+  {
     input: 'index.js',
     output: {
       file: 'dist/index.js',

@@ -41,8 +41,16 @@ function _slicedToArray(arr, i) {
   return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();
 }
 
+function _toArray(arr) {
+  return _arrayWithHoles(arr) || _iterableToArray(arr) || _nonIterableRest();
+}
+
 function _arrayWithHoles(arr) {
   if (Array.isArray(arr)) return arr;
+}
+
+function _iterableToArray(iter) {
+  if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter);
 }
 
 function _iterableToArrayLimit(arr, i) {
@@ -243,23 +251,40 @@ let asciiImgCanvasNodejs = (() => {
   };
 })();
 
+var validateArgs = {
+  alpha: Boolean,
+  block: Boolean,
+  chars: String,
+  height: Number,
+  htmlColor: Boolean,
+  invert: Boolean,
+  width: Number
+};
+
 let main = (() => {
   var _ref = _asyncToGenerator(function* () {
     console.log('run: ascii-img <image-path> <width?> <height?>');
     const args = process.argv.slice(2);
 
-    var _args = _slicedToArray(args, 3);
+    var _args = _toArray(args);
 
-    const img = _args[0];
-    var _args$ = _args[1];
-    const width = _args$ === undefined ? '100' : _args$;
-    var _args$2 = _args[2];
-    const height = _args$2 === undefined ? '100' : _args$2;
-    const opts = {
-      height: Number(height),
-      width: Number(width)
-    };
-    const asciiImgHosted = yield asciiImgCanvasNodejs(img, opts).catch(console.log);
+    const url = _args[0],
+          opts = _args.slice(1);
+
+    const options = opts.reduce(function (map, arg) {
+      var _arg$replace$split = arg.replace(/^--?/, '').split('='),
+          _arg$replace$split2 = _slicedToArray(_arg$replace$split, 2);
+
+      const k = _arg$replace$split2[0],
+            v = _arg$replace$split2[1];
+
+      if (validateArgs[k]) {
+        map[k] = validateArgs[key](v);
+      }
+
+      return map;
+    }, {});
+    const asciiImgHosted = yield asciiImgCanvasNodejs(url, options).catch(console.log);
     console.log(asciiImgHosted);
   });
 

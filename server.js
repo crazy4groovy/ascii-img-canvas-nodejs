@@ -1,3 +1,4 @@
+import validateArgs from './validate-args'
 import imgToAscii from '.'
 
 require('dotenv').config()
@@ -9,20 +10,10 @@ const fastify = require('fastify')({
 
 const [_port, _ip] = process.argv.slice(2)
 
-const optCoerce = {
-  alpha: Boolean,
-  block: Boolean,
-  chars: String,
-  height: Number,
-  htmlColor: Boolean,
-  invert: Boolean,
-  width: Number
-}
-
 function queryToOpts(query) {
   return Object.keys(query).reduce((map, key) => {
-    if (optCoerce[key]) {
-      map[key] = optCoerce[key](query[key])
+    if (validateArgs[key]) {
+      map[key] = validateArgs[key](query[key])
     }
 
     return map
@@ -40,7 +31,7 @@ const postOpts = Object.freeze({
 fastify.use(cors)
 
 fastify.get('/', () => {
-  const opts = Object.keys(optCoerce)
+  const opts = Object.keys(validateArgs)
   return {
     GET: '/img?url=&' + opts.join('=&') + '= >>> response of text/html ',
     POST: '/imgs=' + opts.join('=&') + '= + application/json body of ["url1", "url2", "url3", ...]'

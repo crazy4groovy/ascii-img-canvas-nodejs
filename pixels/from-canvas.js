@@ -21,6 +21,7 @@ export async function fromCanvas(imgSrc, width, height, next) {
       const b = imgData[offset + 2]
       const a = imgData[offset + 3]
       const aPixel = [r, g, b, a]
+
       if (x === 0) {
         row = []
         if (next) {

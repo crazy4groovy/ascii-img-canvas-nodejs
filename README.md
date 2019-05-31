@@ -26,13 +26,14 @@ console.log(asciiImgLocal)
 
 ## Options
 
-- .alpha = `false`  (* .htmlColor)
-- .block = `false`  (* .htmlColor)
 - .chars = `' .,:;i1tfLCG08@'`
-- .htmlColor = `false` *
-- .invert = `false` (light <==> dark)
 - .width = `200`
 - .height = `200`
+- .invert = `false` (light <==> dark)
+- .raw = `false` (`{char, r, g, b, a}`)
+- .htmlColor = `false` *
+- .block = `false`  (* .htmlColor)
+- .opacity = `false`  (* .htmlColor)
 
 ## Usage (cli)
 
@@ -48,7 +49,7 @@ Server:
 
 `npm install -g ascii-img-canvas-nodejs`
 
-`ascii-img-server <port?> <ip?>`
+`ascii-img-server <port?||3000> <ip?||'0.0.0.0'>`
 
 Client:
 

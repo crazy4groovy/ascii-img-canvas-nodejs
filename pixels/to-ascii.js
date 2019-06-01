@@ -78,7 +78,7 @@ export function toAscii({chars, isInvert, isHtmlColor, isBlock, isOpacity, isRaw
     }
 
     if (isRaw) {
-      return asciiChars
+      return JSON.stringify(asciiChars)
     }
 
     return asciiChars.join('')

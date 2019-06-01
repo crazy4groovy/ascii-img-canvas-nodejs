@@ -224,7 +224,7 @@ function toAscii({
     }
 
     if (isRaw) {
-      return asciiChars;
+      return JSON.stringify(asciiChars);
     }
 
     return asciiChars.join('');

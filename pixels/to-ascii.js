@@ -18,7 +18,10 @@ export function toAscii({chars, isInvert, isHtmlColor, isBlock, isOpacity, isRaw
     const [r, g, b] = aPixel
 
     if (aPixel.length === 0) {
-      if (asciiChars.length === 0) return
+      if (asciiChars.length === 0) {
+        return
+      }
+
       asciiChars += (isHtmlColor ? '<br/>' : isRaw ? '' : '\n')
       return
     }
@@ -35,7 +38,7 @@ export function toAscii({chars, isInvert, isHtmlColor, isBlock, isOpacity, isRaw
       char = convertHtmlChars[char]
     }
 
-    asciiChars += formatHtml(char, aPixel) || formatRaw(char, aPixel) || char
+    asciiChars += formatHtmlColor(char, aPixel) || formatRaw(char, aPixel) || char
   }
 
   function pixels(asciiPixels) {
@@ -48,7 +51,7 @@ export function toAscii({chars, isInvert, isHtmlColor, isBlock, isOpacity, isRaw
     return getAsciiChars()
   }
 
-  function formatHtml(char, [r, g, b, a]) {
+  function formatHtmlColor(char, [r, g, b, a]) {
     if (!isHtmlColor) {
       return
     }
@@ -64,7 +67,7 @@ export function toAscii({chars, isInvert, isHtmlColor, isBlock, isOpacity, isRaw
       return
     }
 
-    return ({char, r, g, b, a})
+    return JSON.stringify({char, r, g, b, a})
   }
 
   function getAsciiChars(value) {

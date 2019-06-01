@@ -154,7 +154,10 @@ function toAscii({
           b = _aPixel[2];
 
     if (aPixel.length === 0) {
-      if (asciiChars.length === 0) return;
+      if (asciiChars.length === 0) {
+        return;
+      }
+
       asciiChars += isHtmlColor ? '<br/>' : isRaw ? '' : '\n';
       return;
     }
@@ -172,7 +175,7 @@ function toAscii({
       char = convertHtmlChars[char];
     }
 
-    asciiChars += formatHtml(char, aPixel) || formatRaw(char, aPixel) || char;
+    asciiChars += formatHtmlColor(char, aPixel) || formatRaw(char, aPixel) || char;
   }
 
   function pixels(asciiPixels) {
@@ -185,7 +188,7 @@ function toAscii({
     return getAsciiChars();
   }
 
-  function formatHtml(char, [r, g, b, a]) {
+  function formatHtmlColor(char, [r, g, b, a]) {
     if (!isHtmlColor) {
       return;
     }
@@ -198,13 +201,13 @@ function toAscii({
       return;
     }
 
-    return {
+    return JSON.stringify({
       char,
       r,
       g,
       b,
       a
-    };
+    });
   }
 
   function getAsciiChars(value) {

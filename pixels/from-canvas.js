@@ -24,6 +24,7 @@ export async function fromCanvas(imgSrc, width, height, next) {
 
       if (x === 0) {
         row = []
+
         if (next) {
           next(row)
         } else {

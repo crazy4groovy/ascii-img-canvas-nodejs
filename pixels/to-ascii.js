@@ -10,7 +10,7 @@ function rgbHtmlStr(r, g, b) {
 }
 
 export function toAscii({chars, isInvert, isHtmlColor, isBlock, isOpacity, isRaw}) {
-  let asciiChars = ''
+  let asciiChars = []
   const charList = (chars ||
     (isHtmlColor ? defaultColorCharList : defaultCharList)).split('')
 
@@ -22,7 +22,7 @@ export function toAscii({chars, isInvert, isHtmlColor, isBlock, isOpacity, isRaw
         return
       }
 
-      asciiChars += (isHtmlColor ? '<br/>' : isRaw ? '' : '\n')
+      asciiChars.push(isHtmlColor ? '<br/>' : isRaw ? '' : '\n')
       return
     }
 
@@ -38,7 +38,8 @@ export function toAscii({chars, isInvert, isHtmlColor, isBlock, isOpacity, isRaw
       char = convertHtmlChars[char]
     }
 
-    asciiChars += formatHtmlColor(char, aPixel) || formatRaw(char, aPixel) || char
+    const theChar = formatHtmlColor(char, aPixel) || formatRaw(char, aPixel) || char
+    asciiChars.push(theChar)
   }
 
   function pixels(asciiPixels) {
@@ -67,15 +68,20 @@ export function toAscii({chars, isInvert, isHtmlColor, isBlock, isOpacity, isRaw
       return
     }
 
-    return JSON.stringify({char, r, g, b, a})
+    return ([char, [r, g, b, a]])
   }
 
-  function getAsciiChars(value) {
-    if (typeof value !== 'string') {
+  function getAsciiChars(newArray) {
+    if (Array.isArray(newArray)) {
+      asciiChars = newArray
+      return
+    }
+
+    if (isRaw) {
       return asciiChars
     }
 
-    asciiChars = value
+    return asciiChars.join('')
   }
 
   return {

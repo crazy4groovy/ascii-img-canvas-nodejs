@@ -30,7 +30,7 @@ console.log(asciiImgLocal)
 - .width = `200`
 - .height = `200`
 - .invert = `false` (light <==> dark)
-- .raw = `false` (`{char, r, g, b, a}`)
+- .raw = `false` (format: `[char, [r, g, b, a]]`)
 - .htmlColor = `false` *
 - .block = `false`  (* .htmlColor)
 - .opacity = `false`  (* .htmlColor)

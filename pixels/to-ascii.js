@@ -5,9 +5,7 @@ const convertHtmlChars = {
   ' ': '&nbsp;'
 }
 
-function rgbHtmlStr(r, g, b) {
-  return 'rgb(' + [r, g, b].join(',') + ');'
-}
+const rgbHtmlStr = (r, g, b) => 'rgb(' + [r, g, b].join(',') + ');'
 
 export function toAscii({chars, isInvert, isHtmlColor, isBlock, isOpacity, isRaw}) {
   let asciiChars = []
@@ -15,8 +13,6 @@ export function toAscii({chars, isInvert, isHtmlColor, isBlock, isOpacity, isRaw
     (isHtmlColor ? defaultColorCharList : defaultCharList)).split('')
 
   function pixel(aPixel) {
-    const [r, g, b] = aPixel
-
     if (aPixel.length === 0) {
       if (asciiChars.length === 0) {
         return
@@ -25,6 +21,8 @@ export function toAscii({chars, isInvert, isHtmlColor, isBlock, isOpacity, isRaw
       asciiChars.push(isHtmlColor ? '<br/>' : isRaw ? '' : '\n')
       return
     }
+
+    const [r, g, b] = aPixel
 
     const brightness = ((0.3 * r) + (0.59 * g) + (0.11 * b)) / 255
     let charIdx = (charList.length - 1) - Math.round(brightness * (charList.length - 1))

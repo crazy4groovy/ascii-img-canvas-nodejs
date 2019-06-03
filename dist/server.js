@@ -83,7 +83,8 @@ var validateArgs = {
   invert: Boolean,
   opacity: Boolean,
   raw: Boolean,
-  width: Number
+  width: Number,
+  writeFileWithTag: String
 };
 
 var _require = require('canvas');
@@ -143,9 +144,7 @@ const convertHtmlChars = {
   ' ': '&nbsp;'
 };
 
-function rgbHtmlStr(r, g, b) {
-  return 'rgb(' + [r, g, b].join(',') + ');';
-}
+const rgbHtmlStr = (r, g, b) => 'rgb(' + [r, g, b].join(',') + ');';
 
 function toAscii({
   chars,
@@ -159,12 +158,6 @@ function toAscii({
   const charList = (chars || (isHtmlColor ? defaultColorCharList : defaultCharList)).split('');
 
   function pixel(aPixel) {
-    var _aPixel = _slicedToArray(aPixel, 3);
-
-    const r = _aPixel[0],
-          g = _aPixel[1],
-          b = _aPixel[2];
-
     if (aPixel.length === 0) {
       if (asciiChars.length === 0) {
         return;
@@ -174,6 +167,11 @@ function toAscii({
       return;
     }
 
+    var _aPixel = _slicedToArray(aPixel, 3);
+
+    const r = _aPixel[0],
+          g = _aPixel[1],
+          b = _aPixel[2];
     const brightness = (0.3 * r + 0.59 * g + 0.11 * b) / 255;
     let charIdx = charList.length - 1 - Math.round(brightness * (charList.length - 1));
 

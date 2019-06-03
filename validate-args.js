@@ -6,5 +6,6 @@ export default {
   invert: Boolean,
   opacity: Boolean,
   raw: Boolean,
-  width: Number
+  width: Number,
+  writeFileWithTag: String
 }

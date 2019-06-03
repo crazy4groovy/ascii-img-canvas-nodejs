@@ -91,8 +91,57 @@ var validateArgs = {
   invert: Boolean,
   opacity: Boolean,
   raw: Boolean,
-  width: Number
+  width: Number,
+  writeFileWithTag: String
 };
+
+const fs = require('fs');
+
+var dir = new function () {
+  this.scan = function (dir) {
+    if (dir === '' || dir === '/') {
+      console.error('Error: directory to scan cannot be empty.');
+      console.error('If you want to scan your script location, please use "dir2array.Scan(__dirname);"');
+      return null;
+    }
+
+    if (dir.slice(-1) !== '/') {
+      dir += '/';
+    }
+
+    if (this.dirExists(dir)) {
+      return this.recursiveDir(dir);
+    }
+  };
+
+  this.recursiveDir = function (dir) {
+    const result = [];
+    fs.readdirSync(dir).forEach(item => {
+      const dirItem = dir + item;
+
+      if (this.isDir(dirItem)) {
+        const result2 = this.recursiveDir(dirItem + '/');
+        result2.forEach(r => result.push(r));
+      } else {
+        result.push(dirItem);
+      }
+    });
+    return result;
+  };
+
+  this.isDir = function (item) {
+    return fs.lstatSync(item).isDirectory();
+  };
+
+  this.dirExists = function (dir) {
+    try {
+      const stats = fs.lstatSync(dir);
+      return stats.isDirectory();
+    } catch (error) {
+      return false;
+    }
+  };
+}();
 
 var _require = require('canvas');
 
@@ -151,9 +200,7 @@ const convertHtmlChars = {
   ' ': '&nbsp;'
 };
 
-function rgbHtmlStr(r, g, b) {
-  return 'rgb(' + [r, g, b].join(',') + ');';
-}
+const rgbHtmlStr = (r, g, b) => 'rgb(' + [r, g, b].join(',') + ');';
 
 function toAscii({
   chars,
@@ -167,12 +214,6 @@ function toAscii({
   const charList = (chars || (isHtmlColor ? defaultColorCharList : defaultCharList)).split('');
 
   function pixel(aPixel) {
-    var _aPixel = _slicedToArray(aPixel, 3);
-
-    const r = _aPixel[0],
-          g = _aPixel[1],
-          b = _aPixel[2];
-
     if (aPixel.length === 0) {
       if (asciiChars.length === 0) {
         return;
@@ -182,6 +223,11 @@ function toAscii({
       return;
     }
 
+    var _aPixel = _slicedToArray(aPixel, 3);
+
+    const r = _aPixel[0],
+          g = _aPixel[1],
+          b = _aPixel[2];
     const brightness = (0.3 * r + 0.59 * g + 0.11 * b) / 255;
     let charIdx = charList.length - 1 - Math.round(brightness * (charList.length - 1));
 
@@ -313,12 +359,51 @@ let main = (() => {
 
       return map;
     }, {});
-    const asciiImgHosted = yield asciiImgCanvasNodejs(url, options).catch(console.log);
-    console.log(asciiImgHosted);
+    const writeFileWithTag = options.writeFileWithTag;
+    let srcs;
+
+    if (dir.dirExists(url)) {
+      srcs = dir.scan(url).filter(function (file) {
+        return file.match(/\.(jpe?g|png|svg)$/i);
+      });
+    } else {
+      srcs = [url];
+    }
+
+    const asciis = yield Promise.all(srcs.map((() => {
+      var _ref2 = _asyncToGenerator(function* (src) {
+        return asciiImgCanvasNodejs(src, options).catch(console.log);
+      });
+
+      return function (_x) {
+        return _ref2.apply(this, arguments);
+      };
+    })()));
+
+    if (srcs.length === 1) {
+      console.log(asciis[0]);
+      return;
+    }
+
+    if (writeFileWithTag === undefined) {
+      console.log(asciis.reduce(function (map, ascii, i) {
+        map.push(ascii);
+        map.push('\nFILENAME=' + srcs[i] + ':');
+        return map;
+      }, []).join('\n'));
+      return;
+    }
+
+    asciis.forEach(function (ascii, i) {
+      fs$1.writeFileSync(`${srcs[i]}.${writeFileWithTag}`, ascii, 'utf-8');
+    });
   });
 
   return function main() {
     return _ref.apply(this, arguments);
   };
 })();
+
+const fs$1 = require('fs');
+
 main();

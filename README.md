@@ -2,7 +2,7 @@
 
 ## Overview
 
-Convert almost any image into ASCII in NodeJS.
+Convert almost any image into ASCII with NodeJS.
 
 Note: This lib depends on [canvas](https://www.npmjs.com/package/canvas), which has some **very heavy** [compiling](https://www.npmjs.com/package/canvas#compiling) requirements. Please check to see if/how your machine's OS is supported. (I recommend Ubuntu.)
 
@@ -24,7 +24,7 @@ const asciiImgLocal = await imgToAscii('images/face.jpg', opts)
 console.log(asciiImgLocal)
 ```
 
-## Options
+## Options (= `default`)
 
 - .chars = `' .,:;i1tfLCG08@'`
 - .width = `200`
@@ -42,6 +42,13 @@ console.log(asciiImgLocal)
 `ascii-img {image-path} {options?}`
 
 Eg. `ascii-img "http://url1" --width=100 --height=100`
+
+Eg. `ascii-img "/path/to/local/image.jpg" --width=100 --height=100`
+
+Eg. `ascii-img "/path/to/local/images/folder/" --width=100 --height=100`
+
+- image file names must end with `/\.(jpe?g|png|svg)$/i`
+- supports option: `--writeFileWithTag="txt"`
 
 ## Usage (HTTP/S)
 

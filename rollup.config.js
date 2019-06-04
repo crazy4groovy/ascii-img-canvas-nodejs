@@ -1,5 +1,6 @@
 import babel from 'rollup-plugin-babel'
 import resolve from 'rollup-plugin-node-resolve'
+import {terser} from 'rollup-plugin-terser'
 import shebang from './rollup-plugin-shebang'
 
 export default [
@@ -14,6 +15,7 @@ export default [
       babel({
         exclude: 'node_modules/**' // Only transpile our source code
       }),
+      terser(),
       shebang()
     ]
   },
@@ -28,6 +30,7 @@ export default [
       babel({
         exclude: 'node_modules/**' // Only transpile our source code
       }),
+      terser(),
       shebang()
     ]
   },
@@ -41,7 +44,8 @@ export default [
       resolve(),
       babel({
         exclude: 'node_modules/**' // Only transpile our source code
-      })
+      }),
+      terser()
     ]
   }
 ]

@@ -1,6 +1,6 @@
 {
   "name": "ascii-img-canvas-nodejs",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "Convert almost any image into ASCII with Node.js",
   "main": "dist/index.js",
   "bin": {
@@ -14,6 +14,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/crazy4groovy/ascii-img-canvas-nodejs.git"
+  },
+  "engines" : {
+    "node" : ">=8.0.0"
   },
   "scripts": {
     "build": "rm -rf dist && rollup -c",
@@ -40,6 +43,8 @@
     "rollup": "^1.12.2",
     "rollup-plugin-babel": "^4.3.2",
     "rollup-plugin-node-resolve": "^5.0.0",
+    "rollup-plugin-terser": "^5.0.0",
+    "terser": "^4.0.0",
     "xo": "^0.24.0"
   },
   "xo": {

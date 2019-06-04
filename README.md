@@ -69,7 +69,7 @@ Client:
 
 ## Sample
 
-![cartoon dog](.\resources\cartoon-dog.jpg)
+![cartoon dog](resources/cartoon-dog.jpg)
 
 `$ ascii-img .\resources\cartoon-dog.jpg --width=50 --height=50`
 

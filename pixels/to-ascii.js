@@ -18,7 +18,7 @@ export function toAscii({chars, isInvert, isHtmlColor, isBlock, isOpacity, isRaw
         return
       }
 
-      asciiChars.push(isHtmlColor ? '<br/>' : isRaw ? '' : '\n')
+      asciiChars.push(isHtmlColor ? '<br/>' : isRaw ? ['', []] : '\n')
       return
     }
 

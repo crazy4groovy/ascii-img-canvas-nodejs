@@ -71,7 +71,7 @@ Client:
 
 ![cartoon dog](resources/cartoon-dog.jpg)
 
-`$ ascii-img .\resources\cartoon-dog.jpg --width=50 --height=50`
+`$ ascii-img ./resources/cartoon-dog.jpg --width=50 --height=50`
 
 ```bash
                            ,,:;ii,

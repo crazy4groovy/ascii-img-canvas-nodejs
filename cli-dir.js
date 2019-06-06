@@ -1,46 +1,41 @@
 const fs = require('fs')
 
 export default new function () {
-  this.scan = function (dir) {
-    if (dir === '' || dir === '/') {
+  this.scan = async function (rootDir, handleFile) {
+    if (rootDir === '' || rootDir === '/') {
       console.error('Error: directory to scan cannot be empty.')
       console.error('If you want to scan your script location, please use "dir2array.Scan(__dirname);"')
       return null
     }
 
-    if (dir.slice(-1) !== '/') {
-      dir += '/'
+    if (rootDir.slice(-1) !== '/') {
+      rootDir += '/'
     }
 
-    if (this.dirExists(dir)) {
-      return this.recursiveDir(dir)
+    if (!this.dirExists(rootDir)) {
+      return
     }
-  }
 
-  this.recursiveDir = function (dir) {
-    const result = []
+    const recursiveDir = async dir => {
+      return fs.readdirSync(dir).sort().reduce(async (handleFilePromise, item) => {
+        await handleFilePromise
 
-    fs.readdirSync(dir).forEach(item => {
-      const dirItem = dir + item
-      if (this.isDir(dirItem)) {
-        const result2 = this.recursiveDir(dirItem + '/')
-        result2.forEach(r => result.push(r))
-      } else {
-        result.push(dirItem)
-      }
-    })
+        const dirItem = dir + item
 
-    return result
-  }
+        if (this.dirExists(dirItem)) {
+          return recursiveDir(dirItem + '/')
+        }
 
-  this.isDir = function (item) {
-    return fs.lstatSync(item).isDirectory()
+        return handleFile(dirItem)
+      }, Promise.resolve())
+    }
+
+    return recursiveDir(rootDir)
   }
 
   this.dirExists = function (dir) {
     try {
-      const stats = fs.lstatSync(dir)
-      return stats.isDirectory()
+      return fs.lstatSync(dir).isDirectory()
     } catch (error) {
       return false
     }

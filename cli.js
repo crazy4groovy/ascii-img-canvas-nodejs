@@ -4,6 +4,22 @@ import imgToAscii from '.'
 
 const fs = require('fs')
 
+function formatOutput(ascii, filename) {
+  let output = []
+  if (filename) {
+    output.push('FILENAME=' + filename + ':')
+  }
+
+  output.push(ascii)
+
+  if (filename) {
+    output.push('[EOF]')
+  }
+
+  output = output.join('\n')
+  return output
+}
+
 async function main() {
   const args = process.argv.slice(2)
   const [
@@ -26,32 +42,29 @@ async function main() {
 
   const {writeFileWithTag} = options
 
-  let srcs
+  const handleSrc = async filename => {
+    if (!filename.match(/\.(jpe?g|png|svg)$/i)) {
+      return
+    }
+
+    const ascii = await imgToAscii(filename, options).catch(console.log)
+
+    const formatFilename = writeFileWithTag ? undefined : filename
+    const output = formatOutput(ascii, formatFilename)
+
+    if (!writeFileWithTag) {
+      console.log(output)
+      return
+    }
+
+    fs.writeFileSync(`${filename}.${writeFileWithTag}`, output, 'utf-8')
+  }
+
   if (dir.dirExists(url)) {
-    srcs = dir.scan(url).filter(file => file.match(/\.(jpe?g|png|svg)$/i))
+    await dir.scan(url, handleSrc)
   } else {
-    srcs = [url]
+    handleSrc(url)
   }
-
-  const asciis = await Promise.all(srcs.map(async src => imgToAscii(src, options).catch(console.log)))
-
-  if (srcs.length === 1) {
-    console.log(asciis[0])
-    return
-  }
-
-  if (writeFileWithTag === undefined) {
-    console.log(asciis.reduce((map, ascii, i) => {
-      map.push(ascii)
-      map.push('\nFILENAME=' + srcs[i] + ':')
-      return map
-    }, []).join('\n'))
-    return
-  }
-
-  asciis.forEach((ascii, i) => {
-    fs.writeFileSync(`${srcs[i]}.${writeFileWithTag}`, ascii, 'utf-8')
-  })
 }
 
 main()

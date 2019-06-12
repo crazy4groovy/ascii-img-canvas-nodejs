@@ -49,7 +49,6 @@ Eg. `ascii-img "/path/to/local/images/folder/" --width=100 --height=100`
 
 - image file names must end with `/\.(jpe?g|png|svg)$/i`
 - supports option: `--writeFileWithTag="txt"`
-- `.height` can be calculated
 
 ## Usage (HTTP/S)
 

@@ -42,8 +42,8 @@ async function main() {
 
   const {writeFileWithTag} = options
 
-  const handleSrc = async filename => {
-    if (!filename.match(/\.(jpe?g|png|svg)$/i)) {
+  const handleSrc = async (filename, noCheckFileTag) => {
+    if (!noCheckFileTag && !filename.match(/\.(jpe?g|png|svg)$/i)) {
       return
     }
 
@@ -63,7 +63,7 @@ async function main() {
   if (dir.dirExists(url)) {
     await dir.scan(url, handleSrc)
   } else {
-    handleSrc(url)
+    handleSrc(url, true)
   }
 }
 

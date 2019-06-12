@@ -27,8 +27,8 @@ console.log(asciiImgLocal)
 ## Options (= `default`)
 
 - .chars = `' .,:;i1tfLCG08@'`
-- .width = `200`
-- .height = `200`
+- .width = `undefined` (auto-width: calculated via pixel width * height ratio)
+- .height = `150`
 - .invert = `false` (light <==> dark)
 - .raw = `false` (format: `[char, [r, g, b, a]]`)
 - .htmlColor = `false` *
@@ -49,6 +49,7 @@ Eg. `ascii-img "/path/to/local/images/folder/" --width=100 --height=100`
 
 - image file names must end with `/\.(jpe?g|png|svg)$/i`
 - supports option: `--writeFileWithTag="txt"`
+- `.height` can be calculated
 
 ## Usage (HTTP/S)
 

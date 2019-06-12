@@ -1,5 +1,6 @@
 import {fromCanvas} from './pixels/from-canvas'
 import {toAscii} from './pixels/to-ascii'
+import dimensions from './dimensions'
 
 async function asciiImgCanvasNodejs(imgSrc, opts = {}) {
   if (!imgSrc || typeof imgSrc !== 'string') {
@@ -18,8 +19,17 @@ async function asciiImgCanvasNodejs(imgSrc, opts = {}) {
   const isRaw = (opts.raw === true)
   const isStream = (opts.stream !== false)
 
-  const height = opts.height || 200
-  const width = opts.width || 200
+  const height = opts.height || 150
+
+  let {width} = opts
+  if (width === undefined) {
+    // Calculate width via height's ratio
+    const dim = await dimensions(imgSrc)
+    const ratio = dim.height / height
+    width = Math.round(dim.width / ratio)
+  } else {
+    width = width || height
+  }
 
   const asciiInstance = toAscii({chars, isInvert, isBlock, isOpacity, isHtmlColor, isRaw})
 

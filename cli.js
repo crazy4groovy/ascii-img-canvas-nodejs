@@ -1,5 +1,5 @@
 import validateArgs from './validate-args'
-import dir from './cli-dir'
+import dir from './dir'
 import imgToAscii from '.'
 
 const fs = require('fs')

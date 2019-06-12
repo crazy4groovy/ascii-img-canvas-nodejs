@@ -40,4 +40,12 @@ export default new function () {
       return false
     }
   }
+
+  this.fileExists = function (filename) {
+    try {
+      return fs.existsSync(filename)
+    } catch (error) {
+      return false
+    }
+  }
 }()

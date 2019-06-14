@@ -4,6 +4,7 @@ import imgToAscii from '.'
 require('dotenv').config()
 
 const cors = require('cors')()
+const compression = require('compression')()
 const fastify = require('fastify')({
   logger: process.env.SERVER_LOG || false
 })
@@ -29,6 +30,7 @@ const postOpts = Object.freeze({
 })
 
 fastify.use(cors)
+fastify.use(compression)
 
 fastify.get('/', () => {
   const opts = Object.keys(validateArgs)

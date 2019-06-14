@@ -60,6 +60,8 @@ Server:
 
 Client:
 
+- help:
+  - `GET /`
 - single image:
   - `GET /img?url=http://url1&{options}`
 - multiple images:

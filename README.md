@@ -27,13 +27,20 @@ console.log(asciiImgLocal)
 ## Options (= `default`)
 
 - .chars = `' .,:;i1tfLCG08@'`
-- .width = `undefined` (auto-width: calculated via pixel width * height ratio)
-- .height = `150`
 - .invert = `false` (light <==> dark)
 - .raw = `false` (format: `[char, [r, g, b, a]]`)
 - .htmlColor = `false` *
 - .block = `false`  (* .htmlColor)
 - .opacity = `false`  (* .htmlColor)
+
+### Dimensions
+
+- .width = `undefined` (or `Number`)
+- .height = `undefined` (or `Number`)
+
+If only *one* dimension is specified (as a Number), the other one is auto-calculated to scale (`pixel measurement * ratio`).
+
+If *neither* dimension is specified, `width` is set to `100` and `height` is auto-calculated. (Not recommended)
 
 ## Usage (cli)
 

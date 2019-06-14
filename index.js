@@ -2,6 +2,32 @@ import {fromCanvas} from './pixels/from-canvas'
 import {toAscii} from './pixels/to-ascii'
 import dimensions from './dimensions'
 
+const defaultWidth = 100
+
+async function calcDimensions({width, height}, imgSrc) {
+  if (width && height) {
+    return {width, height}
+  }
+
+  let w = width
+  let h = height
+  const dim = await dimensions(imgSrc)
+
+  if (!w && !h) {
+    w = defaultWidth
+  }
+
+  if (w) {
+    const ratio = dim.width / w
+    h = Math.round(dim.height / ratio)
+  } else {
+    const ratio = dim.height / h
+    w = Math.round(dim.width / ratio)
+  }
+
+  return {width: w, height: h}
+}
+
 async function asciiImgCanvasNodejs(imgSrc, opts = {}) {
   if (!imgSrc || typeof imgSrc !== 'string') {
     throw new TypeError('Invalid image source value: ' + imgSrc)
@@ -19,17 +45,7 @@ async function asciiImgCanvasNodejs(imgSrc, opts = {}) {
   const isRaw = (opts.raw === true)
   const isStream = (opts.stream !== false)
 
-  const height = opts.height || 150
-
-  let {width} = opts
-  if (width === undefined) {
-    // Calculate width via height's ratio
-    const dim = await dimensions(imgSrc)
-    const ratio = dim.height / height
-    width = Math.round(dim.width / ratio)
-  } else {
-    width = width || height
-  }
+  const {width, height} = await calcDimensions(opts, imgSrc)
 
   const asciiInstance = toAscii({chars, isInvert, isBlock, isOpacity, isHtmlColor, isRaw})
 

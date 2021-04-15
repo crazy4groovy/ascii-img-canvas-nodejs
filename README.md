@@ -6,6 +6,8 @@ Convert almost any image into ASCII with NodeJS.
 
 Note: This lib depends on [canvas](https://www.npmjs.com/package/canvas), which has some **very heavy** [compiling](https://www.npmjs.com/package/canvas#compiling) requirements. Please check to see if/how your machine's OS is supported. (I recommend Ubuntu.)
 
+See also: [node-gyp installation guide](https://github.com/nodejs/node-gyp#installation).
+
 ## Install
 
 `npm install ascii-img-canvas-nodejs`
@@ -68,7 +70,7 @@ Server:
 Client:
 
 - help:
-  - `GET /`
+  - `GET /help`
 - single image:
   - `GET /img?url=http://url1&{options}`
 - multiple images:

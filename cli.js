@@ -24,14 +24,14 @@ async function main() {
   const args = process.argv.slice(2)
   const [
     url,
-    ...opts
+    ...options_
   ] = args
 
   if (!url) {
     console.log('run: ascii-img {image-path} {options?}')
   }
 
-  const options = opts.reduce((map, arg) => {
+  const options = options_.reduce((map, arg) => {
     const [k, v] = arg.replace(/^--?/, '').split('=')
     if (validateArgs[k]) {
       map[k] = validateArgs[k](v)
@@ -43,7 +43,7 @@ async function main() {
   const {writeFileWithTag} = options
 
   const handleSrc = async (filename, noCheckFileTag) => {
-    if (!noCheckFileTag && !filename.match(/\.(jpe?g|png|svg)$/i)) {
+    if (!noCheckFileTag && !/\.(jpe?g|png|svg)$/i.test(filename)) {
       return
     }
 

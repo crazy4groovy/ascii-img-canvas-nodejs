@@ -16,7 +16,7 @@
     "url": "https://github.com/crazy4groovy/ascii-img-canvas-nodejs.git"
   },
   "engines": {
-    "node": ">=8.0.0"
+    "node": ">=10.0.0"
   },
   "scripts": {
     "build": "rm -rf dist && rollup -c",

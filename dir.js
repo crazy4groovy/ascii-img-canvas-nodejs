@@ -36,7 +36,7 @@ export default new function () {
   this.dirExists = function (dir) {
     try {
       return fs.lstatSync(dir).isDirectory()
-    } catch (error) {
+    } catch {
       return false
     }
   }
@@ -44,7 +44,7 @@ export default new function () {
   this.fileExists = function (filename) {
     try {
       return fs.existsSync(filename)
-    } catch (error) {
+    } catch {
       return false
     }
   }

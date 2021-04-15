@@ -5,7 +5,7 @@ const convertHtmlChars = {
   ' ': '&nbsp;'
 }
 
-const rgbHtmlStr = (r, g, b) => 'rgb(' + [r, g, b].join(',') + ');'
+const rgbHtmlString = (r, g, b) => 'rgb(' + [r, g, b].join(',') + ');'
 
 export function toAscii({chars, isInvert, isHtmlColor, isBlock, isOpacity, isRaw}) {
   let asciiChars = []
@@ -18,7 +18,7 @@ export function toAscii({chars, isInvert, isHtmlColor, isBlock, isOpacity, isRaw
         return
       }
 
-      asciiChars.push(isHtmlColor ? '<br/>' : isRaw ? ['', []] : '\n')
+      asciiChars.push(isHtmlColor ? '<br/>' : (isRaw ? ['', []] : '\n'))
       return
     }
 
@@ -41,12 +41,14 @@ export function toAscii({chars, isInvert, isHtmlColor, isBlock, isOpacity, isRaw
   }
 
   function pixels(asciiPixels) {
-    asciiPixels.forEach(row => {
-      row.forEach(aPixel => {
+    for (const row of asciiPixels) {
+      for (const aPixel of row) {
         pixel(aPixel)
-      })
+      }
+
       pixel([])
-    })
+    }
+
     return getAsciiChars()
   }
 
@@ -55,8 +57,8 @@ export function toAscii({chars, isInvert, isHtmlColor, isBlock, isOpacity, isRaw
       return
     }
 
-    return '<span style=\'color:' + rgbHtmlStr(r, g, b) +
-      (isBlock ? ('background-color:' + rgbHtmlStr(r, g, b)) : '') +
+    return '<span style=\'color:' + rgbHtmlString(r, g, b) +
+      (isBlock ? ('background-color:' + rgbHtmlString(r, g, b)) : '') +
       (isOpacity ? ('opacity:' + (a / 255) + ';') : '') + '\'>' +
       char + '</span>'
   }

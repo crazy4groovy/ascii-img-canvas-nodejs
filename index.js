@@ -28,24 +28,24 @@ async function calcDimensions({width, height}, imgSrc) {
   return {width: w, height: h}
 }
 
-async function asciiImgCanvasNodejs(imgSrc, opts = {}) {
+async function asciiImgCanvasNodejs(imgSrc, options = {}) {
   if (!imgSrc || typeof imgSrc !== 'string') {
     throw new TypeError('Invalid image source value: ' + imgSrc)
   }
 
-  if (typeof opts !== 'object') {
-    throw new TypeError('Invalid options: ' + opts)
+  if (typeof options !== 'object') {
+    throw new TypeError('Invalid options: ' + options)
   }
 
-  const chars = opts.chars || null
-  const isOpacity = (opts.opacity === true)
-  const isBlock = (opts.block === true)
-  const isHtmlColor = (opts.htmlColor === true)
-  const isInvert = (opts.invert === true)
-  const isRaw = (opts.raw === true)
-  const isStream = (opts.stream !== false)
+  const chars = options.chars || null
+  const isOpacity = (options.opacity === true)
+  const isBlock = (options.block === true)
+  const isHtmlColor = (options.htmlColor === true)
+  const isInvert = (options.invert === true)
+  const isRaw = (options.raw === true)
+  const isStream = (options.stream !== false)
 
-  const {width, height} = await calcDimensions(opts, imgSrc)
+  const {width, height} = await calcDimensions(options, imgSrc)
 
   const asciiInstance = toAscii({chars, isInvert, isBlock, isOpacity, isHtmlColor, isRaw})
 

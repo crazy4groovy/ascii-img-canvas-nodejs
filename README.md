@@ -70,7 +70,7 @@ Server:
 Client:
 
 - help:
-  - `GET /help`
+  - `GET /`
 - single image:
   - `GET /img?url=http://url1&{options}`
 - multiple images:

@@ -1,6 +1,6 @@
 {
   "name": "ascii-img-canvas-nodejs",
-  "version": "1.8.0",
+  "version": "1.8.1",
   "description": "Convert almost any image into ASCII with Node.js",
   "main": "dist/index.js",
   "bin": {
